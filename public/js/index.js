@@ -5,11 +5,14 @@ var renderer = new PIXI.autoDetectRenderer(640, 1004, {
 var Progress = require('./progress.js')
 var graphicsConfig = require('./graphics')
 var textureConfig = require('./texture')
-var progress = Progress(textureConfig)
+var progress = Progress(graphicsConfig)
 document.body.appendChild(renderer.view)
 var stage = new PIXI.Container({backgroundColor : 0x1099bb})
 stage.addChild(progress)
-progress.update(0.5)
+progress.update(0.8)
+window.updateWithProgress = function (p) {
+  progress.update(p)
+}
 animate()
 function animate() {
   requestAnimationFrame(animate)
