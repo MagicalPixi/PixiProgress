@@ -3,7 +3,8 @@ var renderer = new PIXI.autoDetectRenderer(640, 1004, {
   }
 )
 var Progress = require('./progress.js')
-var progress = Progress()
+var graphicsConfig = require('./graphics.js')
+var progress = Progress(graphicsConfig)
 document.body.appendChild(renderer.view)
 var stage = new PIXI.Container({backgroundColor : 0x1099bb})
 stage.addChild(progress)

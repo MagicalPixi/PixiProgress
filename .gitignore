@@ -4,3 +4,4 @@ public/bower_components
 npm-debug.log
 .gulp/
 .vscode
+*.swp
