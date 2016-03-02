@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>progress test</title>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,initial-scale=1" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="/stylesheets/style.css"/>
+    <script>
+    </script>
+    <style>
+        body{
+        }
+        audio{
+            position: absolute;
+            visibility: hidden;
+            top: 0;
+        }
+    </style>
+    <script>
+    </script>
+</head>
+<body>
+
+</body>
+<script src="/bower_components/pixi/bin/pixi.min.js"></script>
+
+<% if(env==='product'){%>
+<script src="/dist/common.js"></script>
+<script src="/dist/main.js"></script>
+<% }else{ %>
+<script src="http://localhost:7301/public/dist/common.js"></script>
+<script src="http://localhost:7301/public/dist/main.js"></script>
+<% } %>
+
+</html>
+
