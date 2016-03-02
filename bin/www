@@ -7,7 +7,7 @@
 var app = require('../app');
 var debug = require('debug')('Progress:server');
 var http = require('http');
-
+var glupfile = require('../gulpfile.js')
 /**
  * Get port from environment and store in Express.
  */
@@ -86,5 +86,15 @@ function onListening() {
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
-  debug('Listening on ' + bind);
+  console.log('Listening on ' + bind);
+  runGulp()
+}
+
+var runGulp = function() {
+  var env = app.get('env')
+  if (env === 'development') {
+    glupfile.start('development')   
+  } else if (env == 'product') {
+    glupfile.start('product')
+  }
 }
