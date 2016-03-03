@@ -3,11 +3,9 @@ var factory = function (config) {
   config.height = config.height || 20
   config.width = config.width || 400
   var progress = new PIXI.Container()
-  progress.generateLoding = generateLoding;
+  progress.generateLoading = config.loading ? generateLoding : generateGraphicsLoading
   progress.generateProgressBar = config.image ? generateTextureBar : generateGraphicsBar
-   if (config.loading) {
-    progress.generateLoding(config.loading, config.loadingWidth, config.loadingHeight, progress)
-  }
+  progress.generateLoading(config, progress)
   var progressBar = progress.generateProgressBar(config)
   progress.addChild(progressBar)
   progress.update = function(progress) {
@@ -29,10 +27,43 @@ var factory = function (config) {
     this.generateLoading()
     this.generateProgressBar()
   }
+  progress.render = function() {
+    progress.children.map(function(child) {
+      if (child.render) {
+        child.render()
+      }
+    })
+  }
   return progress;
 }
 
-var generateLoding = function (loading, width, height, container) {
+var generateGraphicsLoading = function(config, container) {
+  var graphics = new PIXI.Graphics()
+  var width = config.loadingWidth  / 2
+  var height = config.loadingHeight / 2
+  var defaultSpeed  = 18
+  graphics.speed = defaultSpeed 
+  graphics.gravity = - 1
+  graphics.render = function () {
+    this.y -= this.speed
+    this.speed += this.gravity
+    if (this.speed < -defaultSpeed) {
+      this.gravity = 1
+    } else if (this.speed > defaultSpeed) {
+      this.gravity = -1
+    }
+  }
+  graphics.lineStyle(2, config.lineStyle, 1)
+  graphics.beginFill(config.fillStyle, 0.25)
+  graphics.drawCircle(320, 320, width, height)
+  container.addChild(graphics)
+  container.loading = graphics
+}
+
+var generateLoding = function (config, container) {
+  var width = config.loadingWidth
+  var height = config.loadingHeight
+  var loading = config.loading
   PIXI.loader.add(loading).load(function (){
     var frames = [];
     for (var i = 0; i < 30; i++) {
