@@ -5,6 +5,7 @@ var renderer = new PIXI.autoDetectRenderer(640, 1004, {
 var Progress = require('./progress.js')
 var graphicsConfig = require('./graphics')
 var textureConfig = require('./texture')
+graphicsConfig.backgroundColor = 0x415C71
 graphicsConfig.loading = undefined
 var progress = Progress(graphicsConfig)
 document.body.appendChild(renderer.view)

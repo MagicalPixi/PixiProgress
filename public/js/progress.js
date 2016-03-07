@@ -1,8 +1,16 @@
 
 var factory = function (config) {
+  var progress = new PIXI.Container()
+  if (config.backgroundColor) {
+    var background = new PIXI.Graphics()
+    background.beginFill(config.backgroundColor, 1);
+    background.drawRoundedRect(0, 0, 640, 1004, 1);
+    background.endFill();
+    progress.background = background
+    progress.addChild(background)
+  }
   config.height = config.height || 20
   config.width = config.width || 400
-  var progress = new PIXI.Container()
   progress.generateLoading = config.loading ? generateLoding : generateGraphicsLoading
   progress.generateProgressBar = config.image ? generateTextureBar : generateGraphicsBar
   progress.generateLoading(config, progress)
@@ -38,7 +46,7 @@ var factory = function (config) {
 }
 
 var generateGraphicsLoading = function(config, container) {
-  var graphics = new PIXI.Graphics()
+ 1111 graphics = new PIXI.Graphics()
   var width = config.loadingWidth  / 2
   var height = config.loadingHeight / 2
   var defaultSpeed  = 18
@@ -54,7 +62,7 @@ var generateGraphicsLoading = function(config, container) {
     }
   }
   graphics.lineStyle(2, config.lineStyle, 1)
-  graphics.beginFill(config.fillStyle, 0.25)
+  graphics.beginFill(config.fillStyle, 1)
   graphics.drawCircle(320, 320, width, height)
   container.addChild(graphics)
   container.loading = graphics
@@ -89,8 +97,8 @@ var generateGraphicsBar = function(config) {
   graphics.updateWithProgress = function(progress) {
     var currentWidth = config.width * progress
     graphics.clear()
-    graphics.lineStyle(2, 0xFF00BB, 1);
-    graphics.beginFill(0xFF00FF, 0.25)
+    graphics.lineStyle(2, 0xF7CD1F, 1);
+    graphics.beginFill(0xF7CD1F, 1)
     graphics.drawRoundedRect((640 - config.width) / 2, 700, currentWidth, config.height, 5)
     graphics.endFill()
   } 
